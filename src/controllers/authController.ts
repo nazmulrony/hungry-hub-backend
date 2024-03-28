@@ -34,6 +34,7 @@ const signup = catchAsync(
 
 const login = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
+    console.log({ token: req.headers.authorization });
 
     // check if email and password exists
     if (!email || !password) {
@@ -43,9 +44,6 @@ const login = catchAsync(async (req, res, next) => {
 
     // verify if password is correct
     //COMPARE PASSWORD FUNCTION WRITTEN IN USER MODEL
-    const isCorrect = await bcrypt.compare(password, user?.password as string);
-    console.log({ password, userPass: user?.password });
-
     if (!user || !(await user.isPasswordCorrect(password, user.password))) {
         return next(new AppError("Incorrect email or password!", 401));
     }

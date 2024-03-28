@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs";
 
-interface UserType {
+export interface UserType {
+    _id: string;
     name: string;
     email: string;
     password: string;
@@ -32,7 +33,7 @@ const userSchema = new Schema<UserType>({
     password: {
         type: String,
         required: [true, "Please provide a password."],
-        minLength: 8,
+        minLength: 6,
     },
     photo: {
         type: String,
